@@ -1,7 +1,6 @@
 #include <stdio.h>
-
     /*
-     * (1)以下のようなピラミッドの石の総数を数えるアルゴリズム
+     * (1)以下のようなピラミッドの石の総数を数えるプログラム
      */
     void firstProblem() {
         int lineCount = 1;
@@ -9,7 +8,6 @@
 
         for (int i = 0; i < 5; i++) {
             for (int ii = 0; ii < lineCount; ii++) {
-                printf("*");
                 printCount++;
             }
             printf("\n");
@@ -20,9 +18,9 @@
     }
 
     /*
-     * 遊び
+     * テスト
      */
-    void helloWorld() {
+    void calculation() {
         int a = 100000;
         int b = 5183;
         int c =  a + b;
@@ -39,7 +37,7 @@
     }
 
     /*
-     * (2)上のようなピラミッドの底辺の石の個数を入力すると、使われている石の総数を計算するアルゴリズム。
+     * (2)上のようなピラミッドの底辺の石の個数を入力すると、使われている石の総数を計算するプログラム
      */
     void secondProblem() {
         int scanNumber = 0;
@@ -58,7 +56,7 @@
     }
 
     /*
-     * (3)直角三角形のピラミッドの底辺の石の個数を入力すると、該当の絵をかくアルゴリズム。
+     * (3)直角三角形のピラミッドの底辺の石の個数を入力すると、該当の絵をかくプログラム
      */
     void thirdProblem() {
         int scanNumber1 = 0;
@@ -77,7 +75,7 @@
     }
 
 /*
-* (4)以下の絵を描くアルゴリズム
+* (4)以下の絵を描くプログラム
 */
 void fourthProblem() {
     int count = 1;
@@ -96,7 +94,79 @@ void fourthProblem() {
         }
     }
 
+    /*
+     * 試練４
+     */
+
+    //どれだけ石の個数が増えるのかを計算
+    int calcIncreaseStone(int line) {
+        int lineCount = 0;
+        int increaseStone = 0;
+
+        for (int i = 0; i < line; i++) {
+            if (lineCount % 3 != 0) {
+                increaseStone = lineCount / 3 + 1;
+            } else {
+                increaseStone = lineCount / 3;
+            }
+            if (lineCount < 3) {
+                increaseStone = 1;
+            }
+            lineCount++;
+        }
+        return increaseStone;
+    }
+
+    //一列に入力する石の個数を計算
+    int calcStone(int line) {
+        int lineCount = 0;
+        int increaseStone = 3;
+
+        for (int i = 0; i < line; i++) {
+            if (lineCount % 3 != 0) {
+                increaseStone += lineCount / 3 + 1 * 2;
+            } else {
+                increaseStone += lineCount / 3 * 2;
+            }
+            lineCount++;
+        }
+        return increaseStone;
+    }
+
+    void challengeProblem() {
+
+        int line = 1;
+        int lineCount = 0;
+        int bottom;
+        int median;
+        int space;
+
+        printf("倍率を整数で打ち込んでください。\n");
+        scanf("%d", &line);
+
+        // 底辺の石の数を求める。
+        bottom = line * line * line / 100;
+
+        median = bottom / 2;
+        space = median + 1;
+        line -= 6;
+
+
+        for (int ii = 0; ii < line; ii++) {
+            for (int iii = 0; iii < space; iii++) {
+                printf(" ");
+            }
+                for (int I = 0; I < calcStone(lineCount + 1); I++) {
+                    printf("*");
+                }
+            printf("\n");
+            space -= (calcIncreaseStone(lineCount) - 1 / 2);
+            lineCount++;
+        }
+        printf("底辺の石の個数は%d個です。\n", bottom);
+    }
+
 int main() {
-    thirdProblem();
+    challengeProblem();
     return 0;
 }
